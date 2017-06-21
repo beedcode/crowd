@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.7
+
+repositories {
+	maven {
+		url = 'https://m2proxy.atlassian.com/repository/public'
+	}
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile "org.springframework:spring-tx"
+
+	compile (group: "com.atlassian.crowd", name: "crowd-integration-springsecurity", version: "2.8.+"){
+		exclude (group: 'org.apache.ws.commons');
+	}
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
